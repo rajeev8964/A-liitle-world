@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff6f5">
+  <meta name="description" content="A little world made especially for Poonam.">
+  <title>A Little World for Poonam ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Sacramento&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="loader" id="loader" aria-label="Loading your little world">
+    <div class="loader-heart">♡</div>
+    <p>Putting a little magic together<span class="loading-dots">...</span></p>
+  </div>
+
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="heart-field" id="heartField" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" id="brandHome" aria-label="Go to welcome page">a little world <span>♡</span></a>
+    <button class="menu-toggle icon-button" id="menuToggle" type="button" aria-label="Open page menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <nav class="page-menu" id="pageMenu" aria-label="Pages">
+      <button type="button" data-page="0">Home</button>
+      <button type="button" data-page="1">Memories</button>
+      <button type="button" data-page="2">Universe</button>
+      <button type="button" data-page="3">Letter</button>
+      <button type="button" data-page="4">Quiz</button>
+      <button type="button" data-page="5">Happiness</button>
+      <button type="button" data-page="6">Surprise</button>
+    </nav>
+    <div class="sound-controls">
+      <button class="icon-button sound-button" id="musicToggle" type="button" aria-label="Play background music" title="Play gentle music">♫</button>
+      <button class="icon-button sound-button sound-effects-toggle is-on" id="effectsToggle" type="button" aria-label="Mute sound effects" title="Sound effects on">♪</button>
+    </div>
+  </header>
+
+  <main class="stage" id="stage" aria-live="polite">
+    <section class="page page-home active" id="page-0" data-page="0" aria-label="Welcome">
+      <div class="home-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> a tiny corner of the universe</p>
+        <h1>Hey<br><em>Beautiful</em><span class="heading-heart">♥</span></h1>
+        <p class="hero-subtitle">I made a little world, and every little corner reminds me of you.</p>
+        <div class="home-note"><span class="note-sparkle">✦</span><p>A soft little reminder: you make ordinary days feel a bit more lovely.</p></div>
+        <button class="primary-button" type="button" data-go="1">Enter your little world <span>♡</span></button>
+        <p class="made-note">made slowly, with a smile</p>
+      </div>
+      <div class="home-art" aria-label="A flower in a dreamy sunset" role="img">
+        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+        <div class="art-sun"></div><div class="art-flower">✿</div>
+        <span class="art-heart art-heart-one">♡</span><span class="art-heart art-heart-two">♥</span>
+        <span class="art-star art-star-one">✧</span><span class="art-star art-star-two">✦</span>
+        <div class="art-caption">a little happiness<br>just for you</div>
+      </div>
+      <span class="page-kicker">01 <i>—</i> 07</span>
+    </section>
+
+    <section class="page page-memories" id="page-1" data-page="1" aria-label="Our little memories">
+      <div class="page-content memories-content">
+        <div class="section-heading">
+          <p class="eyebrow">little moments, kept close</p>
+          <h2>Our little <em>memories</em> <span>📸</span></h2>
+          <p class="section-intro">The sweetest stories are made of small things. Here are a few pages waiting for your memories.</p>
+        </div>
+        <div class="memory-layout">
+          <div class="polaroid-row">
+            <button class="polaroid polaroid-one" type="button" data-photo="0" aria-label="Open memory: Golden hour kind of day">
+              <span class="photo-frame"><img src="assets/images/memory-1.png" alt="A treasured memory" loading="lazy"></span>
+              <span class="photo-caption">golden hour kind of day <i>♡</i></span>
+            </button>
+            <button class="polaroid polaroid-two" type="button" data-photo="1" aria-label="Open memory: Little joys, big smiles">
+              <span class="photo-frame"><img src="assets/images/memory-2.png" alt="A treasured memory" loading="lazy"></span>
+              <span class="photo-caption">little joys, big smiles <i>✦</i></span>
+            </button>
+            <button class="polaroid polaroid-three" type="button" data-photo="2" aria-label="Open memory: Somewhere beautiful">
+              <span class="photo-frame"><img src="assets/images/memory-3.png" alt="A treasured memory" loading="lazy"></span>
+              <span class="photo-caption">somewhere beautiful <i>♡</i></span>
+            </button>
+          </div>
+          <div class="memory-timeline">
+            <p class="timeline-label">A few little chapters</p>
+            <article class="timeline-item"><span class="timeline-dot">01</span><div><time>THE FIRST LITTLE SPARK</time><h3>A day worth keeping</h3><p>Some moments are small, but somehow they stay with you.</p></div></article>
+            <article class="timeline-item"><span class="timeline-dot">02</span><div><time>THE EVERYDAY MAGIC</time><h3>Laughing about nothing</h3><p>The best memories don't need a grand plan—just the right company.</p></div></article>
+            <article class="timeline-item"><span class="timeline-dot">03</span><div><time>MORE TO COME</time><h3>Our next adventure</h3><p>This page has plenty of room for all the lovely moments ahead.</p></div></article>
+          </div>
+        </div>
+        <p class="replace-hint"><span>✦</span> These are placeholders—swap in your own favorite photos whenever you like.</p>
+      </div>
+    </section>
+
+    <section class="page page-universe" id="page-2" data-page="2" aria-label="You are my universe">
+      <div class="galaxy-stars" aria-hidden="true"></div>
+      <div class="page-content universe-content">
+        <p class="eyebrow eyebrow-light">somewhere among the stars</p>
+        <div class="moon-wrap" aria-hidden="true"><div class="moon"></div><span class="moon-spark spark-a">✦</span><span class="moon-spark spark-b">✧</span></div>
+        <p class="universe-overline">in an infinite universe...</p>
+        <h2 class="universe-quote">In a universe full of people,<br><em>you're my favourite.</em></h2>
+        <p class="universe-caption">Of all the stars, it's still your light I notice.</p>
+        <div class="constellation" aria-label="Interactive constellation">
+          <svg viewBox="0 0 360 110" aria-hidden="true"><path d="M37 70 103 34 162 65 228 24 319 54M103 34 125 91 162 65 228 24 260 85"/></svg>
+          <button class="constellation-star star-one" type="button" aria-label="Twinkle constellation star">✦</button>
+          <button class="constellation-star star-two" type="button" aria-label="Twinkle constellation star">✦</button>
+          <button class="constellation-star star-three" type="button" aria-label="Twinkle constellation star">✦</button>
+          <button class="constellation-star star-four" type="button" aria-label="Twinkle constellation star">✦</button>
+          <button class="constellation-star star-five" type="button" aria-label="Twinkle constellation star">✦</button>
+          <button class="constellation-star star-six" type="button" aria-label="Twinkle constellation star">✦</button>
+        </div>
+        <p class="star-hint">tap a star to make a wish <span>✧</span></p>
+      </div>
+      <span class="shooting-star" aria-hidden="true"></span>
+    </section>
+
+    <section class="page page-letter" id="page-3" data-page="3" aria-label="A letter for you">
+      <div class="page-content letter-content">
+        <div class="section-heading">
+          <p class="eyebrow">a little something, just for you</p>
+          <h2>A letter <em>for you</em> <span>💌</span></h2>
+        </div>
+        <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-label="Open your letter">
+          <span class="envelope-back"></span><span class="envelope-letter-preview">a note for Poonam</span>
+          <span class="envelope-flap"></span><span class="envelope-front"></span><span class="envelope-seal">♡</span>
+          <span class="envelope-instruction">tap to open</span>
+        </button>
+        <article class="letter-paper" id="letterPaper" aria-hidden="true">
+          <button class="letter-close" id="letterClose" type="button" aria-label="Fold the letter">×</button>
+          <p class="letter-dear">Dear Poonam,</p>
+          <p>Sometimes, the simplest things bring the biggest smiles, and somehow, you have become one of those special reasons.</p>
+          <p>I don't know how to explain it perfectly, but there's something about you that makes ordinary moments feel special.</p>
+          <p>I just wanted to create something beautiful to remind you that you're special.</p>
+          <p class="letter-signoff">With a little smile,<br><span>Someone who thinks you're amazing <b>♥</b></span></p>
+          <button class="text-button letter-surprise-button" id="letterSurprise" type="button">P.S. there's one more thing <span>✦</span></button>
+          <p class="letter-secret" id="letterSecret" hidden>You deserve all the lovely things this world can hold. Keep being wonderfully, unmistakably you. ♡</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="page page-quiz" id="page-4" data-page="4" aria-label="How well do you know me">
+      <div class="page-content quiz-content">
+        <div class="section-heading">
+          <p class="eyebrow">a tiny game for two</p>
+          <h2>How well do you <em>know me?</em> <span>🎮</span></h2>
+          <p class="section-intro">No pressure, Poonam. Just pick what feels right!</p>
+        </div>
+        <div class="quiz-card" id="quizCard">
+          <div class="quiz-topline"><span id="quizCount">QUESTION 01 / 05</span><span class="quiz-score">♡ <b id="quizScore">0</b></span></div>
+          <div class="quiz-progress"><span id="quizProgress"></span></div>
+          <div id="quizQuestionArea"></div>
+          <div class="quiz-feedback" id="quizFeedback" aria-live="polite"></div>
+          <div class="quiz-actions"><button class="text-button quiz-next" id="quizNext" type="button" hidden>Next question <span>→</span></button></div>
+        </div>
+        <div class="quiz-confetti" id="quizConfetti" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="page page-happiness" id="page-5" data-page="5" aria-label="Your daily dose of happiness">
+      <div class="page-content happiness-content">
+        <div class="section-heading">
+          <p class="eyebrow">a pocket-sized pick-me-up</p>
+          <h2>Your daily dose of <em>happiness</em> <span>🌸</span></h2>
+          <p class="section-intro">Whatever kind of day it is, there's a little kindness here for you.</p>
+        </div>
+        <div class="happiness-grid">
+          <article class="smile-card">
+            <div class="flower-stamp">✿</div><p class="card-eyebrow">A LITTLE REMINDER</p>
+            <p class="compliment" id="compliment">You make the world a little brighter.</p>
+            <button class="primary-button smile-button" id="smileButton" type="button">Click for a smile <span>☺</span></button>
+          </article>
+          <article class="mood-card">
+            <p class="card-eyebrow">HOW'S YOUR HEART TODAY?</p>
+            <div class="mood-options" role="group" aria-label="Choose your mood">
+              <button type="button" data-mood="sunny" aria-label="Sunny mood">☀️</button>
+              <button type="button" data-mood="good" aria-label="Good mood">😊</button>
+              <button type="button" data-mood="okay" aria-label="Okay mood">🌿</button>
+              <button type="button" data-mood="cloudy" aria-label="Cloudy mood">🌧️</button>
+              <button type="button" data-mood="tired" aria-label="Tired mood">🌙</button>
+            </div>
+            <p class="mood-response" id="moodResponse" aria-live="polite">Pick the little sky that feels like yours.</p>
+            <div class="mood-divider"></div>
+            <p class="card-eyebrow">A THOUGHT TO KEEP</p>
+            <p class="daily-quote" id="dailyQuote">“You don't have to bloom every day to be growing.”</p>
+          </article>
+        </div>
+        <div class="happiness-footer"><span>✦</span> take a deep breath. you're doing better than you think. <span>✦</span></div>
+      </div>
+    </section>
+
+    <section class="page page-surprise" id="page-6" data-page="6" aria-label="One last thing">
+      <div class="page-content surprise-content">
+        <p class="eyebrow">before you go...</p>
+        <div class="big-heart-wrap" aria-hidden="true"><div class="big-heart">♥</div><span class="heart-orbit orbit-heart-a">♡</span><span class="heart-orbit orbit-heart-b">✧</span><span class="heart-orbit orbit-heart-c">♡</span></div>
+        <h2>One Last <em>Thing...</em></h2>
+        <p class="final-message">Out of all the little things in this world, I'm glad I got to create this little world for you.</p>
+        <button class="primary-button surprise-button" id="surpriseButton" type="button">Click for a surprise <span>💝</span></button>
+        <div class="hidden-surprise" id="hiddenSurprise" aria-live="polite" hidden>
+          <p>In case nobody told you today: you are someone worth celebrating. I hope the world is gentle with your heart, Poonam. <span>♡</span></p>
+        </div>
+        <p class="final-signoff">always keep a little room for wonder <span>✦</span></p>
+      </div>
+    </section>
+  </main>
+
+  <div class="page-controls" aria-label="Page navigation">
+    <button class="page-arrow" id="previousPage" type="button" aria-label="Previous page">← <span>BACK</span></button>
+    <div class="page-indicator"><span id="currentPageNumber">01</span><i>/</i>07</div>
+    <button class="page-arrow" id="nextPage" type="button" aria-label="Next page"><span>NEXT</span> →</button>
+  </div>
+
+  <button class="back-to-top icon-button" id="backToTop" type="button" aria-label="Return to welcome page" title="Back to the beginning">↑</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Memory photo" aria-hidden="true">
+    <button class="lightbox-close icon-button" id="lightboxClose" type="button" aria-label="Close photo">×</button>
+    <img id="lightboxImage" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
