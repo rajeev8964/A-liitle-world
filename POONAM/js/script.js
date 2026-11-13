@@ -9,9 +9,6 @@
   const menuToggle = document.getElementById("menuToggle");
   const pageMenu = document.getElementById("pageMenu");
   const effectsToggle = document.getElementById("effectsToggle");
-  const sorryModal = document.getElementById("sorryModal");
-  const sorryHeart = document.getElementById("sorryHeart");
-  const sorryBurst = document.getElementById("sorryBurst");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let currentPage = 0;
   let isTransitioning = false;
@@ -19,44 +16,6 @@
   let audioContext;
   let musicTimer;
   let lastCompliment = -1;
-
-  const celebrateSorry = () => {
-    sorryHeart.classList.remove("is-beating");
-    window.requestAnimationFrame(() => sorryHeart.classList.add("is-beating"));
-    if (reducedMotion.matches) return;
-    for (let index = 0; index < 12; index += 1) {
-      const particle = document.createElement("span");
-      const angle = (Math.PI * 2 * index) / 12;
-      const distance = 55 + Math.random() * 75;
-      particle.textContent = index % 3 === 0 ? "✦" : "♥";
-      particle.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
-      particle.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
-      particle.style.setProperty("--rotate", `${Math.random() * 50 - 25}deg`);
-      particle.style.setProperty("--size", `${12 + Math.random() * 9}px`);
-      sorryBurst.appendChild(particle);
-      window.setTimeout(() => particle.remove(), 1200);
-    }
-  };
-  sorryModal.addEventListener("cancel", (event) => event.preventDefault());
-  document.getElementById("sorryAgain").addEventListener("click", celebrateSorry);
-  document.getElementById("sorryAccept").addEventListener("click", (event) => {
-    const acceptButton = event.currentTarget;
-    const againButton = document.getElementById("sorryAgain");
-    document.getElementById("sorryThanks").hidden = false;
-    acceptButton.disabled = true;
-    againButton.disabled = true;
-    celebrateSorry();
-    window.setTimeout(() => {
-      sorryModal.classList.add("is-closing");
-      window.setTimeout(() => {
-        sorryModal.close();
-        sorryModal.classList.remove("is-closing");
-        document.querySelector(".page-home [data-go='1']").focus();
-      }, reducedMotion.matches ? 10 : 380);
-    }, 2000);
-  });
-  sorryModal.showModal();
-  document.getElementById("sorryAccept").focus();
 
   const playEffect = (frequency = 660, duration = 0.12) => {
     if (!effectsEnabled) return;
@@ -137,7 +96,9 @@
     menuToggle.setAttribute("aria-label", isOpen ? "Close page menu" : "Open page menu");
   });
 
-  window.addEventListener("wheel", (event) => event.preventDefault(), { passive: false });
+  window.addEventListener("wheel", (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest(".calling-content")) event.preventDefault();
+  }, { passive: false });
   window.addEventListener("keydown", (event) => {
     const target = event.target;
     const isInteracting = target instanceof Element && Boolean(target.closest("button, a, input, textarea, select, [contenteditable='true']"));
@@ -156,7 +117,9 @@
       goToPage(currentPage - 1);
     }
   });
-  document.getElementById("stage").addEventListener("touchmove", (event) => event.preventDefault(), { passive: false });
+  document.getElementById("stage").addEventListener("touchmove", (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest(".calling-content")) event.preventDefault();
+  }, { passive: false });
   document.getElementById("effectsToggle").addEventListener("click", () => {
     effectsEnabled = !effectsEnabled;
     effectsToggle.classList.toggle("is-on", effectsEnabled);

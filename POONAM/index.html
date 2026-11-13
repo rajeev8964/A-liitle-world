@@ -17,37 +17,6 @@
     <p>Putting a little magic together<span class="loading-dots">...</span></p>
   </div>
 
-  <dialog class="sorry-modal" id="sorryModal" aria-labelledby="sorryTitle" aria-describedby="sorryMessage">
-    <div class="sorry-sparkles" aria-hidden="true">
-      <span>✦</span><span>✧</span><span>·</span><span>✦</span><span>♡</span><span>·</span>
-    </div>
-    <div class="sorry-content">
-      <div class="sorry-illustration" aria-hidden="true">
-        <span class="illustration-glow"></span>
-        <span class="illustration-envelope"><span class="illustration-heart" id="sorryHeart">♥</span></span>
-        <span class="illustration-spark illustration-spark-one">✦</span>
-        <span class="illustration-spark illustration-spark-two">✧</span>
-      </div>
-      <p class="sorry-eyebrow">A Little Message For You <span>💌</span></p>
-      <h1 id="sorryTitle">I'm Sorry, Poonam <span>❤️</span></h1>
-      <div class="sorry-message" id="sorryMessage">
-        <p>Hey Poonam...</p>
-        <p>I don't know if my words can explain everything, but I genuinely want to say I'm sorry.</p>
-        <p>If anything I said or did ever hurt you, please forgive me.</p>
-        <p>I never wanted to make you feel bad. You are special, and I don't want a misunderstanding or a little mistake to take away the beautiful moments.</p>
-        <p>Sometimes words aren't enough, but this little message comes straight from my heart.</p>
-        <p>I'm really sorry. <span>❤️</span></p>
-      </div>
-      <p class="sorry-thanks" id="sorryThanks" aria-live="polite" hidden>Thank you for reading my message. You mean a lot. ❤️</p>
-      <div class="sorry-actions">
-        <button class="sorry-primary" id="sorryAccept" type="button">It's Okay <span>❤️</span></button>
-        <button class="sorry-again" id="sorryAgain" type="button">Read My Message Again <span>💌</span></button>
-      </div>
-      <p class="sorry-signoff">sent with care, from my heart <span>♡</span></p>
-    </div>
-    <div class="sorry-burst" id="sorryBurst" aria-hidden="true"></div>
-  </dialog>
-
   <div class="ambient ambient-one" aria-hidden="true"></div>
   <div class="ambient ambient-two" aria-hidden="true"></div>
   <div class="heart-field" id="heartField" aria-hidden="true"></div>
@@ -65,6 +34,7 @@
       <button type="button" data-page="4">Quiz</button>
       <button type="button" data-page="5">Happiness</button>
       <button type="button" data-page="6">Surprise</button>
+      <button type="button" data-page="7">Let's Talk</button>
     </nav>
     <div class="sound-controls">
       <button class="icon-button sound-button" id="musicToggle" type="button" aria-label="Play background music" title="Play gentle music">♫</button>
@@ -89,7 +59,7 @@
         <span class="art-star art-star-one">✧</span><span class="art-star art-star-two">✦</span>
         <div class="art-caption">a little happiness<br>just for you</div>
       </div>
-      <span class="page-kicker">01 <i>—</i> 07</span>
+      <span class="page-kicker">01 <i>—</i> 08</span>
     </section>
 
     <section class="page page-memories" id="page-1" data-page="1" aria-label="Our little memories">
@@ -234,11 +204,81 @@
         <p class="final-signoff">always keep a little room for wonder <span>✦</span></p>
       </div>
     </section>
+
+    <section class="page page-calling" id="page-7" data-page="7" aria-label="Private audio and video call">
+      <div class="page-content calling-content">
+        <div class="section-heading calling-heading">
+          <p class="eyebrow">a little closer, wherever you are</p>
+          <h2>Let's Talk Together <em>❤️</em></h2>
+          <p class="section-intro">Even when we're far apart, we can still share a moment together.</p>
+        </div>
+        <div class="call-dashboard">
+          <div class="call-topline">
+            <span class="call-live-indicator"><i></i><span id="callConnectionStatus" aria-live="polite">Not connected</span></span>
+            <span class="room-badge" id="roomBadge" hidden>ROOM <b id="roomBadgeId"></b></span>
+          </div>
+          <div class="call-video-stage" id="callVideoStage">
+            <video class="remote-video" id="remoteVideo" autoplay playsinline hidden></video>
+            <audio id="remoteAudio" autoplay></audio>
+            <div class="remote-placeholder" id="remotePlaceholder">
+              <span class="call-avatar">♡</span>
+              <strong id="remoteName">Your person</strong>
+              <span id="remotePresence">Waiting for someone to join</span>
+            </div>
+            <video class="local-video" id="localVideo" autoplay muted playsinline hidden></video>
+            <div class="video-label remote-video-label" id="remoteVideoLabel" hidden>Your person</div>
+            <div class="video-label local-video-label" id="localVideoLabel" hidden>You</div>
+            <button class="fullscreen-button" id="fullscreenCall" type="button" aria-label="View call full screen" title="Full screen">⛶</button>
+          </div>
+          <div class="call-profiles">
+            <article class="profile-card" id="localProfile">
+              <span class="profile-avatar">✿</span>
+              <span class="profile-copy"><strong>You</strong><small><i class="presence-dot"></i><span id="localPresence">Offline</span></small></span>
+              <span class="profile-mic" id="localMicStatus" aria-label="Microphone muted">⌁</span>
+            </article>
+            <article class="profile-card" id="remoteProfile">
+              <span class="profile-avatar profile-avatar-other">♡</span>
+              <span class="profile-copy"><strong>Your person</strong><small><i class="presence-dot" id="remotePresenceDot"></i><span id="remoteProfilePresence">Offline</span></small></span>
+              <span class="profile-mic" id="remoteMicStatus" aria-label="Microphone status">⌁</span>
+            </article>
+          </div>
+          <p class="call-status-message" id="callStatusMessage" role="status">Create a private room or join with a room ID to begin.</p>
+          <div class="room-actions">
+            <button class="call-primary-button" id="createRoom" type="button">Create a private room <span>♡</span></button>
+            <div class="join-room-form">
+              <label class="sr-only" for="roomIdInput">Room ID</label>
+              <input id="roomIdInput" type="text" inputmode="text" autocomplete="off" maxlength="12" placeholder="Enter room ID" aria-describedby="callStatusMessage">
+              <button class="call-secondary-button" id="joinRoom" type="button">Join room</button>
+            </div>
+            <button class="call-secondary-button" id="chooseCallMode" type="button" aria-label="Switch to video call">Use video</button>
+            <div class="share-room" id="shareRoom" hidden>
+              <span>Share this room ID</span>
+              <strong id="roomIdDisplay"></strong>
+              <button class="call-secondary-button" id="copyRoomId" type="button">Copy ID</button>
+            </div>
+            <button class="call-secondary-button leave-room-button" id="leaveRoom" type="button" hidden>Leave room</button>
+            <div class="incoming-call" id="incomingCall" hidden role="alert">
+              <span><b id="incomingCaller">Your person</b> is calling you</span>
+              <div><button class="call-secondary-button" id="rejectCall" type="button">Decline</button><button class="call-primary-button" id="acceptCall" type="button">Answer <span>♡</span></button></div>
+            </div>
+            <button class="call-primary-button start-call-button" id="startCall" type="button" disabled>Start a call <span>♡</span></button>
+          </div>
+          <div class="call-controls" id="callControls" aria-label="Call controls" hidden>
+            <button class="call-control" id="toggleMicrophone" type="button" aria-pressed="false" aria-label="Mute microphone" title="Mute microphone"><span>♬</span><small>Mute</small></button>
+            <button class="call-control" id="toggleCamera" type="button" aria-pressed="false" aria-label="Turn camera off" title="Turn camera off"><span>◉</span><small>Camera</small></button>
+            <button class="call-control" id="switchCamera" type="button" aria-label="Switch camera" title="Switch front/rear camera" hidden><span>⟳</span><small>Flip</small></button>
+            <button class="call-control mode-control" id="toggleCallMode" type="button" aria-label="Switch to video call"><span>▣</span><small>Video</small></button>
+            <button class="call-control end-call-control" id="endCall" type="button" aria-label="End call" title="End call"><span>☎</span><small>End</small></button>
+          </div>
+        </div>
+        <p class="call-privacy-note">Private, peer-to-peer calls. Audio and video are never recorded or stored.</p>
+      </div>
+    </section>
   </main>
 
   <div class="page-controls" aria-label="Page navigation">
     <button class="page-arrow" id="previousPage" type="button" aria-label="Previous page">← <span>BACK</span></button>
-    <div class="page-indicator"><span id="currentPageNumber">01</span><i>/</i>07</div>
+    <div class="page-indicator"><span id="currentPageNumber">01</span><i>/</i><span id="totalPageCount">08</span></div>
     <button class="page-arrow" id="nextPage" type="button" aria-label="Next page"><span>NEXT</span> →</button>
   </div>
 
@@ -250,5 +290,7 @@
   </div>
 
   <script src="js/script.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/calling.js"></script>
 </body>
 </html>
