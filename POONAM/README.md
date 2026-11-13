@@ -13,6 +13,7 @@ You can also open `index.html` directly in a modern browser, but Live Server pro
 
 ## Navigation and controls
 
+- A personal apology message appears on every fresh visit; the welcome page stays behind it until **It's Okay** is selected.
 - Choose a page from the top menu, or use the **Back** and **Next** controls at the bottom.
 - On a keyboard, use the arrow keys to change pages when focus is not on a control. The mouse wheel never changes pages.
 - On smaller screens, open the menu with the button beside the title.

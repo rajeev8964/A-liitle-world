@@ -17,6 +17,37 @@
     <p>Putting a little magic together<span class="loading-dots">...</span></p>
   </div>
 
+  <dialog class="sorry-modal" id="sorryModal" aria-labelledby="sorryTitle" aria-describedby="sorryMessage">
+    <div class="sorry-sparkles" aria-hidden="true">
+      <span>✦</span><span>✧</span><span>·</span><span>✦</span><span>♡</span><span>·</span>
+    </div>
+    <div class="sorry-content">
+      <div class="sorry-illustration" aria-hidden="true">
+        <span class="illustration-glow"></span>
+        <span class="illustration-envelope"><span class="illustration-heart" id="sorryHeart">♥</span></span>
+        <span class="illustration-spark illustration-spark-one">✦</span>
+        <span class="illustration-spark illustration-spark-two">✧</span>
+      </div>
+      <p class="sorry-eyebrow">A Little Message For You <span>💌</span></p>
+      <h1 id="sorryTitle">I'm Sorry, Poonam <span>❤️</span></h1>
+      <div class="sorry-message" id="sorryMessage">
+        <p>Hey Poonam...</p>
+        <p>I don't know if my words can explain everything, but I genuinely want to say I'm sorry.</p>
+        <p>If anything I said or did ever hurt you, please forgive me.</p>
+        <p>I never wanted to make you feel bad. You are special, and I don't want a misunderstanding or a little mistake to take away the beautiful moments.</p>
+        <p>Sometimes words aren't enough, but this little message comes straight from my heart.</p>
+        <p>I'm really sorry. <span>❤️</span></p>
+      </div>
+      <p class="sorry-thanks" id="sorryThanks" aria-live="polite" hidden>Thank you for reading my message. You mean a lot. ❤️</p>
+      <div class="sorry-actions">
+        <button class="sorry-primary" id="sorryAccept" type="button">It's Okay <span>❤️</span></button>
+        <button class="sorry-again" id="sorryAgain" type="button">Read My Message Again <span>💌</span></button>
+      </div>
+      <p class="sorry-signoff">sent with care, from my heart <span>♡</span></p>
+    </div>
+    <div class="sorry-burst" id="sorryBurst" aria-hidden="true"></div>
+  </dialog>
+
   <div class="ambient ambient-one" aria-hidden="true"></div>
   <div class="ambient ambient-two" aria-hidden="true"></div>
   <div class="heart-field" id="heartField" aria-hidden="true"></div>
