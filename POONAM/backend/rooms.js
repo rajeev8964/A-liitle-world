@@ -3,14 +3,14 @@
 const crypto = require("node:crypto");
 
 const ROOM_TTL_MS = 2 * 60 * 60 * 1000;
-const ROOM_ID_PATTERN = /^[A-F0-9]{12}$/;
+const ROOM_ID_PATTERN = /^[A-F0-9]{32}$/;
 const rooms = new Map();
 const socketRooms = new Map();
 
 function createRoomId() {
   let roomId;
   do {
-    roomId = crypto.randomBytes(6).toString("hex").toUpperCase();
+    roomId = crypto.randomBytes(16).toString("hex").toUpperCase();
   } while (rooms.has(roomId));
   return roomId;
 }
@@ -31,6 +31,7 @@ function getRoom(roomId) {
 function removeRoom(roomId) {
   const room = rooms.get(roomId);
   if (!room) return;
+  if (room.call && room.call.timeout) clearTimeout(room.call.timeout);
   for (const socketId of room.participants) socketRooms.delete(socketId);
   rooms.delete(roomId);
 }
@@ -71,6 +72,7 @@ function leave(socketId) {
   socketRooms.delete(socketId);
   if (!room) return { roomId, room: null, remaining: [] };
   room.participants.delete(socketId);
+  if (room.call && room.call.timeout) clearTimeout(room.call.timeout);
   if (room.call) room.call = null;
   const remaining = Array.from(room.participants);
   if (remaining.length === 0) rooms.delete(roomId);

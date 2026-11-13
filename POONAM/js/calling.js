@@ -122,18 +122,23 @@
     $("#chooseCallMode").hidden = active;
     $("#chooseCallMode").disabled = active || callPending;
     if (active) {
-      callStartedAt = Date.now();
-      updateCallTimer();
-      callTimer = window.setInterval(updateCallTimer, 1000);
-    } else if (callTimer) {
-      window.clearInterval(callTimer);
-      callTimer = null;
-      setConnectionStatus(peerPresent ? "Room connected" : "Not connected");
+      callStartedAt = 0;
+      setConnectionStatus("Connecting");
+      if (peerConnection && peerConnection.connectionState === "connected") {
+        updateCallTimer();
+        if (!callTimer) callTimer = window.setInterval(updateCallTimer, 1000);
+      }
+      return;
     }
+    callStartedAt = 0;
+    if (callTimer) window.clearInterval(callTimer);
+    callTimer = null;
+    setConnectionStatus(peerPresent ? "Room connected" : "Not connected");
   };
 
   const updateCallTimer = () => {
-    if (!callStartedAt) return;
+    if (!peerConnection || peerConnection.connectionState !== "connected") return;
+    if (!callStartedAt) callStartedAt = Date.now();
     const seconds = Math.floor((Date.now() - callStartedAt) / 1000);
     const elapsed = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
     setConnectionStatus(`Connected · ${elapsed}`);
@@ -266,7 +271,8 @@
     peerConnection.onconnectionstatechange = () => {
       if (!peerConnection) return;
       if (peerConnection.connectionState === "connected") {
-        setConnectionStatus("Connected · 00:00");
+        if (!callTimer) callTimer = window.setInterval(updateCallTimer, 1000);
+        updateCallTimer();
         setStatus("You're together. Enjoy your moment. ♡");
       } else if (peerConnection.connectionState === "failed") {
         setConnectionStatus("Connection failed");
@@ -362,6 +368,10 @@
     socket.on("call:rejected", () => {
       endLocalCall("The call was declined.");
     });
+    socket.on("call:timeout", () => {
+      endLocalCall("No answer this time. You can try calling again.");
+      setConnectionStatus("Call unanswered");
+    });
     socket.on("call:ended", () => {
       endLocalCall("The other person ended the call.");
       setConnectionStatus("Call ended");
@@ -420,8 +430,8 @@
 
   joinRoomButton.addEventListener("click", async () => {
     const requestedRoomId = roomIdInput.value.trim().toUpperCase();
-    if (!/^[A-F0-9]{12}$/.test(requestedRoomId)) {
-      setStatus("Enter a valid 12-character room ID.");
+    if (!/^[A-F0-9]{32}$/.test(requestedRoomId)) {
+      setStatus("Enter a valid 32-character room ID.");
       roomIdInput.focus();
       return;
     }

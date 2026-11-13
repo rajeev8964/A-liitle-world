@@ -12,7 +12,7 @@ const io = new Server(httpServer);
 const clients = [];
 
 before(async () => {
-  registerSignaling(io);
+  registerSignaling(io, { callRingTimeoutMs: 50 });
   await new Promise((resolve) => httpServer.listen(0, "127.0.0.1", resolve));
 });
 
@@ -55,7 +55,7 @@ test("private rooms limit membership and relay only validated call signaling", a
 
   const created = await emitAck(caller, "room:create");
   assert.equal(created.ok, true);
-  assert.match(created.roomId, /^[A-F0-9]{12}$/);
+  assert.match(created.roomId, /^[A-F0-9]{32}$/);
 
   const peerJoined = waitFor(caller, "room:peer-joined");
   const joined = await emitAck(callee, "room:join", { roomId: created.roomId.toLowerCase() });
@@ -118,4 +118,20 @@ test("private rooms limit membership and relay only validated call signaling", a
   const peerLeft = waitFor(caller, "room:peer-left");
   assert.deepEqual(await emitAck(callee, "room:leave"), { ok: true });
   assert.deepEqual(await peerLeft, { participantCount: 1 });
+
+  const peerRejoined = waitFor(caller, "room:peer-joined");
+  assert.equal((await emitAck(callee, "room:join", { roomId: created.roomId })).ok, true);
+  await peerRejoined;
+
+  const incomingAgain = waitFor(callee, "call:incoming");
+  const callerTimedOut = waitFor(caller, "call:timeout");
+  const calleeTimedOut = waitFor(callee, "call:timeout");
+  assert.deepEqual(await emitAck(caller, "call:invite", { mode: "audio" }), { ok: true });
+  await incomingAgain;
+  await Promise.all([callerTimedOut, calleeTimedOut]);
+  assert.deepEqual(await emitAck(caller, "call:invite", { mode: "audio" }), { ok: true });
+
+  const peerDisconnected = waitFor(caller, "room:peer-left");
+  callee.disconnect();
+  assert.deepEqual(await peerDisconnected, { participantCount: 1 });
 });

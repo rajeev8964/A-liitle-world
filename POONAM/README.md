@@ -13,8 +13,9 @@ The Express server serves the existing website and Socket.IO signaling endpoint 
 
 ## Private calls
 
-- Create a room and share its 12-character ID, or enter an ID to join.
+- Create a room and share its 32-character ID, or enter an ID to join.
 - Rooms are held in memory, allow at most two participants, and expire after two hours. They are removed when both participants leave.
+- Unanswered calls ring for up to 45 seconds.
 - Select audio or video before starting. The browser asks for media permissions when a call starts or is answered.
 - Calls use WebRTC peer-to-peer media. The signaling server relays room and connection setup messages only; it does not record or persist calls.
 - Camera and microphone access requires HTTPS in production (localhost is permitted for development). Serve the site and signaling server behind an HTTPS reverse proxy before sharing it publicly.

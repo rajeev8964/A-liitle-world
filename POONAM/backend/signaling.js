@@ -1,6 +1,7 @@
 "use strict";
 
 const rooms = require("./rooms");
+const CALL_RING_TIMEOUT_MS = 45 * 1000;
 
 function acknowledge(callback, response) {
   if (typeof callback === "function") callback(response);
@@ -14,7 +15,7 @@ function roomPayload(roomId, room, socketId) {
   };
 }
 
-function registerSignaling(io) {
+function registerSignaling(io, { callRingTimeoutMs = CALL_RING_TIMEOUT_MS } = {}) {
   io.on("connection", (socket) => {
     socket.on("room:create", (callback) => {
       if (rooms.roomForSocket(socket.id)) {
@@ -59,7 +60,15 @@ function registerSignaling(io) {
         acknowledge(callback, { ok: false, code: "CALL_IN_PROGRESS" });
         return;
       }
-      current.room.call = { callerId: socket.id, mode, status: "ringing" };
+      const call = { callerId: socket.id, mode, status: "ringing", timeout: null };
+      current.room.call = call;
+      call.timeout = setTimeout(() => {
+        const latest = rooms.roomForSocket(socket.id);
+        if (!latest || latest.room.call !== call || call.status !== "ringing") return;
+        latest.room.call = null;
+        io.to(current.roomId).emit("call:timeout");
+      }, callRingTimeoutMs);
+      call.timeout.unref();
       socket.to(current.roomId).emit("call:incoming", { mode });
       acknowledge(callback, { ok: true });
     });
@@ -71,6 +80,8 @@ function registerSignaling(io) {
         acknowledge(callback, { ok: false, code: "NO_INCOMING_CALL" });
         return;
       }
+      if (call.timeout) clearTimeout(call.timeout);
+      call.timeout = null;
       call.status = "active";
       socket.to(current.roomId).emit("call:accepted");
       acknowledge(callback, { ok: true, mode: call.mode });
@@ -83,6 +94,7 @@ function registerSignaling(io) {
         acknowledge(callback, { ok: false, code: "NO_INCOMING_CALL" });
         return;
       }
+      if (call.timeout) clearTimeout(call.timeout);
       current.room.call = null;
       socket.to(current.roomId).emit("call:rejected");
       acknowledge(callback, { ok: true });
@@ -94,6 +106,7 @@ function registerSignaling(io) {
         acknowledge(callback, { ok: false, code: "NO_ACTIVE_CALL" });
         return;
       }
+      if (current.room.call.timeout) clearTimeout(current.room.call.timeout);
       current.room.call = null;
       socket.to(current.roomId).emit("call:ended");
       acknowledge(callback, { ok: true });
